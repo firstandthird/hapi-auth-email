@@ -1,0 +1,36 @@
+{
+  "name": "hapi-auth-email",
+  "version": "0.0.0",
+  "description": "Drop in email login auth scheme for hapi",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firstandthird/hapi-auth-email.git"
+  },
+  "keywords": [
+    "hapi",
+    "auth",
+    "login",
+    "email",
+    "register",
+    "account"
+  ],
+  "author": "First+Third",
+  "bugs": {
+    "url": "https://github.com/firstandthird/hapi-auth-email/issues"
+  },
+  "homepage": "https://github.com/firstandthird/hapi-auth-email",
+  "dependencies": {
+    "boom": "^2.8.0",
+    "easy-pbkdf2": "^0.1.1",
+    "handlebars": "^3.0.3",
+    "hoek": "^2.14.0",
+    "lodash": "^3.9.3"
+  },
+  "devDependencies": {
+    "hapi": "^8.6.1"
+  }
+}
