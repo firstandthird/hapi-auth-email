@@ -6,13 +6,21 @@ server.connection({ host: 'localhost', port: 8000 });
 
 var users = [];
 
+var cookieOptions = {
+  ttl: null,
+  path: '/',
+  encoding: 'iron',
+  password: 'somethingrandom'
+};
+
 server.register({
   register: require('../'),
   options: {
     getAccount: 'auth.getAccount',
     saveAccount: 'auth.saveAccount',
-    redirectTo: '/auth/login'
-
+    redirectTo: '/auth/login',
+    cookieOptions: cookieOptions,
+    cookieName: 'auth'
   }
 }, {
   routes: {
@@ -36,20 +44,30 @@ server.register({
     }
   });
 
+  server.state('auth', cookieOptions);
+
   server.method('auth.getAccount', function(request, done) {
-    done(null, _.find(users, { email: _.get(request, 'auth.credentials.email', '') }));
+    var email = '';
+
+    if (typeof request.state.auth === 'object') {
+      email = _.get(request, 'state.auth.email', '');
+    } else {
+      email = _.get(request, 'auth.credentials.email', '');
+    }
+    
+    done(null, _.find(users, { email: email }));
   });
 
   server.method('auth.saveAccount', function(request, user, done) {
     users.push(user);
-    done(null);
+    done(null, user);
   });
 
   server.start(function(err) {
     if (err) {
       return console.error(err);
     }
-    
+
     console.log('Server started at:', server.info.uri);
   });
 });
