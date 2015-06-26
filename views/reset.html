@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Login to {{name}}</title>
+    <title>Reset Password for {{name}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       body {
@@ -41,7 +41,7 @@
         background: #f2dede;
         padding: 5px;
       }
-      .registerLink {
+      .loginLink {
         float: right;
       }
     </style>
@@ -58,21 +58,15 @@
       {{/if}}
       <form action="{{endpoint}}" method="post">
         {{#if error}}
-          <p class="error">Invalid Password</p>
-        {{/if}}
-        {{#if passReset}}
-          <p class="error">Password reset.</p>
+          <p class="error">There was a problem resetting your password.</p>
         {{/if}}
         <label for="email">Email:</label>
         <input type="text" name="email"/>
-        <label for="password">Password:</label>
-        <input type="password" name="password"/>
         {{#if next}}
         <input type="hidden" name="next" value="{{next}}"/>
         {{/if}}
-        <a href="{{reset}}" class="registerLink">Reset Password</a>
-        <a href="{{register}}" class="registerLink">Register</a>
-        <input type="submit" value="Sign In"/>
+        <a href="{{login}}" class="loginLink">Login</a>
+        <input type="submit" value="Reset Password"/>
       </form>
     </div>
   </body>

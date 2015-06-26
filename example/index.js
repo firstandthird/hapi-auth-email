@@ -27,12 +27,7 @@ server.register({
     prefix: '/auth'
   }
 }, function(err) {
-  server.auth.strategy('email', 'email', true, {
-    loginForm: {
-      name: 'hapi-auth-email example',
-      description: 'Accounts are only stored in memory'
-    }
-  });
+  server.auth.strategy('email', 'email', true);
 
   server.route({
     method: 'GET',
@@ -46,20 +41,34 @@ server.register({
 
   server.state('auth', cookieOptions);
 
-  server.method('auth.getAccount', function(request, done) {
-    var email = '';
+  server.method('auth.getAccount', function(request, email, done) {
 
-    if (typeof request.state.auth === 'object') {
-      email = _.get(request, 'state.auth.email', '');
-    } else {
-      email = _.get(request, 'auth.credentials.email', '');
+    if (typeof email === 'function') {
+      done = email;
+      email = false;
     }
-    
+
+    if (!email) {
+      if (typeof request.state.auth === 'object') {
+        email = _.get(request, 'state.auth.email', '');
+      } else {
+        email = _.get(request, 'auth.credentials.email', '');
+      }
+    }
+
     done(null, _.find(users, { email: email }));
   });
 
   server.method('auth.saveAccount', function(request, user, done) {
-    users.push(user);
+    if (user.password) {
+      console.log('Normally you\'d email the user here. New user password is ' + user.password);
+      // you'd also not want to save the password in the user object.
+      var index = _.indexOf(users, _.find(users, {email: user.email}));
+      users.splice(index, 1, user);
+    } else {
+      users.push(user);
+    }
+
     done(null, user);
   });
 
