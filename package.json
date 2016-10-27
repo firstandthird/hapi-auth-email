@@ -4,7 +4,8 @@
   "description": "Drop in email login auth scheme for hapi",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "lab",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -24,13 +25,18 @@
   },
   "homepage": "https://github.com/firstandthird/hapi-auth-email",
   "dependencies": {
-    "boom": "^2.8.0",
+    "boom": "^4.2.0",
     "easy-pbkdf2": "^0.1.1",
-    "handlebars": "^3.0.3",
-    "hoek": "^2.14.0",
-    "lodash": "^3.9.3"
+    "handlebars": "^4.0.5",
+    "hoek": "^4.1.0",
+    "lodash": "^4.16.4"
   },
   "devDependencies": {
-    "hapi": "^8.6.1"
+    "code": "^4.0.0",
+    "eslint": "^3.4.0",
+    "eslint-config-firstandthird": "^3.0.2",
+    "eslint-plugin-import": "^1.14.0",
+    "hapi": "^15.2.0",
+    "lab": "^11.1.0"
   }
 }
