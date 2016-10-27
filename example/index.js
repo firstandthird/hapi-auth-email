@@ -1,12 +1,12 @@
-var Hapi = require('hapi');
-var _ = require('lodash');
+const Hapi = require('hapi');
+const _ = require('lodash');
 
-var server = new Hapi.Server();
+const server = new Hapi.Server();
 server.connection({ host: 'localhost', port: 8000 });
 
-var users = [];
+const users = [];
 
-var cookieOptions = {
+const cookieOptions = {
   ttl: null,
   path: '/',
   encoding: 'iron',
@@ -19,21 +19,24 @@ server.register({
     getAccount: 'auth.getAccount',
     saveAccount: 'auth.saveAccount',
     redirectTo: '/auth/login',
-    cookieOptions: cookieOptions,
+    cookieOptions,
     cookieName: 'auth'
   }
 }, {
   routes: {
     prefix: '/auth'
   }
-}, function(err) {
+}, (err) => {
+  if (err) {
+    server.log(['hapi-auth-email', 'error'], err);
+  }
   server.auth.strategy('email', 'email', true);
 
   server.route({
     method: 'GET',
     path: '/',
     config: {
-      handler: function(request, reply) {
+      handler: (request, reply) => {
         reply(request.auth);
       }
     }
@@ -41,8 +44,7 @@ server.register({
 
   server.state('auth', cookieOptions);
 
-  server.method('auth.getAccount', function(request, email, done) {
-
+  server.method('auth.getAccount', (request, email, done) => {
     if (typeof email === 'function') {
       done = email;
       email = false;
@@ -56,14 +58,14 @@ server.register({
       }
     }
 
-    done(null, _.find(users, { email: email }));
+    done(null, _.find(users, { email }));
   });
 
-  server.method('auth.saveAccount', function(request, user, done) {
+  server.method('auth.saveAccount', (request, user, done) => {
     if (user.password) {
-      console.log('Normally you\'d email the user here. New user password is ' + user.password);
+      server.log(['hapi-auth-email', 'warning'], { message: `Normally you\'d email the user here. New user password is ${user.password}` });
       // you'd also not want to save the password in the user object.
-      var index = _.indexOf(users, _.find(users, {email: user.email}));
+      const index = _.indexOf(users, _.find(users, { email: user.email }));
       users.splice(index, 1, user);
     } else {
       users.push(user);
@@ -72,11 +74,10 @@ server.register({
     done(null, user);
   });
 
-  server.start(function(err) {
-    if (err) {
-      return console.error(err);
+  server.start((startErr) => {
+    if (startErr) {
+      return server.log(['hapi-auth-email', 'error'], startErr);
     }
-
     console.log('Server started at:', server.info.uri);
   });
 });
