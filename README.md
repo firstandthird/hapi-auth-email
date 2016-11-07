@@ -24,6 +24,7 @@ Options:
 
 The following addition options are only for built in views:
  - `saveAccount` - Method to save the user. Only used when using the built in views. Params: `request`, `user`, `callback(err, user)`
+ - `loginPathTemplate` / `registerPathTemplate` / `resetPassPathTemplate` - Method to override view.
  - `loginPath` - Login url for built in view. Default: `'/login'`
  - `registerPath` - Registration url for built in view. Default: `'/register'`
  - `resetPassPath` - Reset url for built in view. Default `'/reset'`
