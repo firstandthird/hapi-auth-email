@@ -18,6 +18,7 @@ server.register({
   options: {
     getAccount: 'auth.getAccount',
     saveAccount: 'auth.saveAccount',
+    loginPathTemplate: 'auth.loginPathTemplate',
     redirectTo: '/auth/login',
     cookieOptions,
     cookieName: 'auth'
@@ -72,6 +73,10 @@ server.register({
     }
 
     done(null, user);
+  });
+
+  server.method('auth.loginPathTemplate', (request, reply, data, output, done) => {
+    done(null, `${output} TEST`);
   });
 
   server.start((startErr) => {
