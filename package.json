@@ -1,6 +1,6 @@
 {
   "name": "hapi-auth-email",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Drop in email login auth scheme for hapi",
   "main": "index.js",
   "scripts": {

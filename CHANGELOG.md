@@ -1,5 +1,12 @@
 
+1.1.0 / 2016-11-10
+==================
+
+  * Minor template fixes
+  * Support for newest hapijs
+
 1.0.0 / 2016-10-07
+==================
 
   * Add template override support
 
