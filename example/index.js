@@ -7,10 +7,11 @@ server.connection({ host: 'localhost', port: 8000 });
 const users = [];
 
 const cookieOptions = {
-  ttl: null,
+  ttl: 365 * 24 * 60 * 60 * 1000,
   path: '/',
   encoding: 'iron',
-  password: 'somethingrandom'
+  password: 'this-must-be-a-very-long-string-now',
+  isSecure: false
 };
 
 server.register({
@@ -43,7 +44,7 @@ server.register({
     }
   });
 
-  server.state('auth', cookieOptions);
+  // server.state('auth', cookieOptions);
 
   server.method('auth.getAccount', (request, email, done) => {
     if (typeof email === 'function') {
