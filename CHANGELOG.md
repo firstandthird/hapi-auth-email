@@ -1,3 +1,7 @@
+1.1.1 / 2016-11-12
+==================
+
+  * Remove check for salt/hash in authenticate method.
 
 1.1.0 / 2016-11-10
 ==================
