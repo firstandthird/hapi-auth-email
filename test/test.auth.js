@@ -197,7 +197,6 @@ lab.experiment('hapi-auth-email', () => {
         }
       }, (err) => {
         server.auth.strategy('email', 'email', true);
-        server.state('auth', cookieOptions);
         code.expect(err).to.equal(undefined);
         server.inject({
           url: '/register',
@@ -263,7 +262,6 @@ lab.experiment('hapi-auth-email', () => {
         }
       }, (err) => {
         server.auth.strategy('email', 'email', true);
-        server.state('auth', cookieOptions);
         server.inject({
           url: '/register',
           method: 'POST',
