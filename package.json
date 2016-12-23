@@ -35,8 +35,8 @@
     "code": "^4.0.0",
     "eslint": "^3.4.0",
     "eslint-config-firstandthird": "^3.0.2",
-    "eslint-plugin-import": "^1.14.0",
-    "hapi": "^15.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "hapi": "^16.0.2",
     "iron": "^4.0.4",
     "lab": "^11.1.0"
   }
